@@ -138,8 +138,10 @@
     defaults: {
       account: {type:"car-bmw", required:true},
       name: {value:"", required:false},
-      vin: {value:"", required:true},
       datatype: {value:"dynamic", required:true}
+    },
+    credentials: {
+      vin: {type: "text", required:true}
     },
     inputs:1,
     outputs:1,

@@ -150,7 +150,7 @@ module.exports = function(RED) {
     this.account = config.account;
     this.configNode = RED.nodes.getNode(this.account);
     this.name = config.name;
-    this.vin = config.vin;
+    //this.vin = config.vin;
     this.datatype = config.datatype;
 
 
@@ -168,8 +168,8 @@ module.exports = function(RED) {
         tokenmanager.initialize(config,
           function onSuccess(token, tokenType) {
 
-            var vin = node.vin;
-            if (msg.hasOwnProperty('vin')) { vin = node.vin || msg.vin; }
+            var vin = node.credentials.vin;
+            if (msg.hasOwnProperty('vin')) { vin = node.credentials.vin || msg.vin; }
             var path = '/api/vehicle/' + node.datatype + '/v1/' + vin;
 
             if (node.configNode.debug) {
@@ -204,6 +204,10 @@ module.exports = function(RED) {
       this.error(RED._("car-bmw.errors.missing-config"));
     }
   }
-  RED.nodes.registerType("car-bmw-get", CarBmwNodeGet);
+  RED.nodes.registerType("car-bmw-get", CarBmwNodeGet, {
+    credentials: {
+         vin: {type:"text"}
+       }
+    });
 
 };
