@@ -41,6 +41,7 @@ For these nodes to work you need a car with BMW ConnectedDrive support and remot
 
 ## Credits
 - Sebastian Krauskopf (mail@sebakrau.de)
+
 This project is heavily influenced by the work of:
 - Nils Schneider (https://github.com/Lyve1981/BMW-ConnectedDrive-JSON-Wrapper)
 - Sergej Müller (https://github.com/sergejmueller/battery.ebiene.de)

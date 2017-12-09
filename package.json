@@ -13,6 +13,7 @@
   },
   "license": "MIT",
   "keywords": [
+    "node-red",
     "BMW",
     "ConnectedDrive",
     "Remote Services",
