@@ -38,6 +38,7 @@ For these nodes to work you need a car with BMW ConnectedDrive support and remot
 
 ## History
 - 2017-Dez-01: 0.1.0 - First prototype.
+- 2018-Jan-26: 0.1.1 - Remove verbose logging of token code.
 
 ## Credits
 - Sebastian Krauskopf (mail@sebakrau.de)
