@@ -59,9 +59,19 @@ module.exports = function(RED) {
     });
 
 
-
-
-
+  /* ---------------------------------------------------------------------------
+   * Utility Functions
+   * -------------------------------------------------------------------------*/
+  function isValidVin(vin)
+  {
+    var letterNumber = /^[0-9A-HJ-NPR-Z]+$/;
+    if(letterNumber.test(vin)) {
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
 
 
   /* ---------------------------------------------------------------------------
@@ -170,6 +180,11 @@ module.exports = function(RED) {
 
             var vin = node.credentials.vin;
             if (msg.hasOwnProperty('vin')) { vin = node.credentials.vin || msg.vin; }
+            if (!isValidVin(vin)) {
+              node.error('The VIN you have entered contains invalid characters. Please check.');
+              return;
+            }
+
             var path = '/api/vehicle/' + node.datatype + '/v1/' + vin;
 
             if (node.configNode.debug) {
