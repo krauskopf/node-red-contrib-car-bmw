@@ -1,0 +1,36 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Launch Node-RED",
+      "type": "pwa-node",
+      "request": "launch",
+      "skipFiles": [
+          "<node_internals>/**"
+      ],
+      "program": "D:/programs/nodered/red.js",
+      "env": {
+        "DEBUG": "bmw",                                 // uncomment for additional debug logs
+        "NODE_ENV": "testing"
+      }
+    },
+    {
+      "name": "Launch Develop",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceRoot}/test/develop.js",
+      "stopOnEntry": false,
+      "cwd": "${workspaceRoot}",
+      "runtimeExecutable": null,
+      "console": "integratedTerminal",
+      "env": {
+        //"TEST_HOSTNAME": "www.bmw-connecteddrive.com",  // uncomment to override the hostname to test against (default: mockup on localhost)
+        "DEBUG": "bmw",                                 // uncomment for additional debug logs
+        "NODE_ENV": "testing"
+      }
+    }
+  ]
+}

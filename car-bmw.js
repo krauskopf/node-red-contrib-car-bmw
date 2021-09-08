@@ -1,7 +1,7 @@
 /*
 The MIT License (MIT)
 
-Copyright (c) 2017 sebakrau
+Copyright (c) 2017-2021 sebakrau
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -23,9 +23,9 @@ SOFTWARE.
 */
 
 module.exports = function(RED) {
+  'use strict';
+  const Bmw = require('./lib/bmw.js');
 
-  var tokenmanager = require('./lib/tokenmanager.js');
-  var bmwrequest = require('./lib/bmwrequest.js');
 
 
   /* ---------------------------------------------------------------------------
@@ -38,12 +38,17 @@ module.exports = function(RED) {
     this.name = config.name;
     this.debug = config.debug;
     this.server = config.server;
+    if (this.credentials) {
+      this.username = this.credentials.username;
+      this.password = this.credentials.password;
+    }
 
     // Config node state
     this.closing = false;
+    this.bmw = new Bmw(this.server, this.username, this.password);
 
     // Define functions called by nodes
-    var node = this;
+    let node = this;
 
     // Define config node event listeners
     node.on("close", function(done){
@@ -59,19 +64,7 @@ module.exports = function(RED) {
     });
 
 
-  /* ---------------------------------------------------------------------------
-   * Utility Functions
-   * -------------------------------------------------------------------------*/
-  function isValidVin(vin)
-  {
-    var letterNumber = /^[0-9A-HJ-NPR-Z]+$/;
-    if(letterNumber.test(vin)) {
-      return true;
-    }
-    else {
-      return false;
-    }
-  }
+
 
 
   /* ---------------------------------------------------------------------------
@@ -86,55 +79,49 @@ module.exports = function(RED) {
     this.name = config.name;
     this.as = config.as || "single";
 
-    var node = this;
+    let node = this;
     if (this.configNode) {
 
   		// Input handler, called on incoming flow
-      this.on('input', function(msg) {
+      this.on('input', function(msg, send, done) {
 
-        var config = {
-          'username': node.configNode.credentials.username,
-          'password': node.configNode.credentials.password
-        }
+        node.configNode.bmw.getCarList()
+          .then((carList) => {
 
-        tokenmanager.initialize(config,
-          function onSuccess(token, tokenType) {
+            // For maximum backwards compatibility, check that send exists.
+            // If this node is installed in Node-RED 0.x, it will need to
+            // fallback to using `node.send`
+            send = send || function() { node.send.apply(node, arguments) }
 
-            if (node.configNode.debug) {
-              node.log("Token init completed: " + "\nToken: " + token + "\nTokenType: " + tokenType);
+            if (node.as === "multi") {
+              let numVehicles = carList.length;
+              for(let v = 0; v < numVehicles; ++v) {
+                let msgVehicle = RED.util.cloneMessage(msg)
+                msgVehicle.payload = carList[v];
+                send(msgVehicle);
+              }
             }
 
-            bmwrequest.call(node.configNode.server, '/api/me/vehicles/v2', '', token, tokenType, function(data) {
-            	try	{
-                var json = JSON.parse(data);
+            if (node.as === "single") {
+              msg.payload = carList;
+              send(msg);
+            }
 
-                if (node.as === "multi") {
-                  var numVehicles = json.length;
-                  for(var v = 0; v < numVehicles; ++v) {
-                    var msgVehicle = RED.util.cloneMessage(msg)
-                    msgVehicle.payload = json[v];
-                    node.send(msgVehicle);
-                  }
-                }
+            // Once finished, call 'done'.
+            // This call is wrapped in a check that 'done' exists
+            // so the node will work in earlier versions of Node-RED (<1.0)
+            if (done) {
+              done();
+            }
 
-                if (node.as === "single") {
-                  msg.payload = json;
-                  node.send(msg);
-                }
-
-          		}
-          		catch(err) {
-          			node.warn("Failed to parse data " + data + ", error " + err);
-          		}
-            }, function onError(err) {
-              node.warn("Failed to read list of vehicles:" + err);
-            });
-
-          },
-          function onError(err) {
-            node.warn("Failed to read token:" + err);
-          }
-        );
+          })
+          .catch((err) => {
+            if (done) {
+              done(err); // Node-RED 1.0 compatible
+            } else {
+              node.error(err, msg); // Node-RED 0.x compatible
+            }
+          });
 
       });
     } else {
@@ -142,9 +129,6 @@ module.exports = function(RED) {
     }
   }
   RED.nodes.registerType("car-bmw-list", CarBmwNodeList);
-
-
-
 
 
 
@@ -160,58 +144,52 @@ module.exports = function(RED) {
     this.account = config.account;
     this.configNode = RED.nodes.getNode(this.account);
     this.name = config.name;
-    //this.vin = config.vin;
     this.datatype = config.datatype;
 
 
-    var node = this;
+    let node = this;
     if (this.configNode) {
 
   		// Input handler, called on incoming flow
-      this.on('input', function(msg) {
+      this.on('input', function(msg, send, done) {
 
-        var config = {
-          'username': node.configNode.credentials.username,
-          'password': node.configNode.credentials.password
+        let vin = node.credentials.vin;
+        if (msg.hasOwnProperty('vin')) {
+          vin = node.credentials.vin || msg.vin;
+        }
+        if (!Bmw.isValidVin(vin)) {
+          node.error('The VIN you have entered contains invalid characters. Please check.');
+          return;
         }
 
-        tokenmanager.initialize(config,
-          function onSuccess(token, tokenType) {
+        node.configNode.bmw.getCarInfo(vin, node.datatype)
+          .then((data) => {
 
-            var vin = node.credentials.vin;
-            if (msg.hasOwnProperty('vin')) { vin = node.credentials.vin || msg.vin; }
-            if (!isValidVin(vin)) {
-              node.error('The VIN you have entered contains invalid characters. Please check.');
-              return;
+            // For maximum backwards compatibility, check that send exists.
+            // If this node is installed in Node-RED 0.x, it will need to
+            // fallback to using `node.send`
+            send = send || function() { node.send.apply(node, arguments) }
+
+            msg.payload = data;
+            msg.title = node.datatype;
+            msg.vin = vin;
+
+            send(msg);
+
+            // Once finished, call 'done'.
+            // This call is wrapped in a check that 'done' exists
+            // so the node will work in earlier versions of Node-RED (<1.0)
+            if (done) {
+              done();
             }
-
-            var path = '/api/vehicle/' + node.datatype + '/v1/' + vin;
-
-            if (node.configNode.debug) {
-              node.log("Token init completed: " + "\nToken: " + token + "\nTokenType: " + tokenType);
-              node.log("Path: " + path);
+          })
+          .catch((err) => {
+            if (done) {
+              done(err); // Node-RED 1.0 compatible
+            } else {
+              node.error(err, msg); // Node-RED 0.x compatible
             }
-
-            bmwrequest.call(node.configNode.server, path , '', token, tokenType, function(data) {
-            	try	{
-                var json = JSON.parse(data);
-                msg.payload = json;
-                msg.title = node.datatype;
-                msg.vin = vin;
-                node.send(msg);
-          		}
-          		catch(err) {
-          			node.warn("Failed to parse data " + data + ", error " + err);
-          		}
-            }, function onError(err) {
-              node.warn("Failed to get data of vehicle:" + err);
-            });
-
-          },
-          function onError(err) {
-            node.warn("Failed to read token:" + err);
-          }
-        );
+          });
 
       });
 
