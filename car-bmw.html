@@ -7,9 +7,9 @@
   RED.nodes.registerType("car-bmw", {
     category: "config",
     defaults: {
-      name: {value:"", required:false},
-      server: {value:"www.bmw-connecteddrive.com", required:true},
-      debug: {value:false, required:true}
+      name: {value:"", required: false},
+      server: {value:"www.bmw-connecteddrive.com", required: true},
+      debug: {value:false, required: true}
     },
     credentials: {
       username: {type: "text"},
@@ -63,12 +63,12 @@
     color: "#2E9BDA",
     icon: "car.png",
     defaults: {
-      account: {type:"car-bmw", required:true},
-      name: {value:"", required:false},
-      as: {value:"single", required:true}
+      account: {type: "car-bmw", required: true},
+      name: {value: "", required: false},
+      as: {value: "single", required: true}
     },
-    inputs:1,
-    outputs:1,
+    inputs: 1,
+    outputs: 1,
     paletteLabel: "BMW List",
     label: function() {
       return this.name ? this.name : "BMW ConnectedDrive List";
@@ -136,15 +136,15 @@
     color: "#2E9BDA",
     icon: "car.png",
     defaults: {
-      account: {type:"car-bmw", required:true},
-      name: {value:"", required:false},
-      datatype: {value:"dynamic", required:true}
+      account: {type: "car-bmw", required: true},
+      name: {value: "", required:false},
+      datatype: {value: "dynamic", required: true}
     },
     credentials: {
-      vin: {type: "text", required:true}
+      vin: {type: "text", required: true}
     },
-    inputs:1,
-    outputs:1,
+    inputs: 1,
+    outputs: 1,
     paletteLabel: "BMW Get",
     label: function() {
       if (this.name) {
@@ -158,7 +158,10 @@
         'navigation':                       'Navigation',
         'remoteservices/chargingprofile':   'Charging Profile',
         'servicepartner':                   'Service Partner',
-        'efficiency':                       'Efficiency'
+        'efficiency':                       'Efficiency',
+        'statistics/allTrips':              'All Trips',
+        'statistics/lastTrip':              'Last Trip',
+
       };
 
       return "" + text[this.datatype];
@@ -189,6 +192,8 @@
             <option value="remoteservices/chargingprofile">Charging Profile</option>
             <option value="servicepartner">Service Partner</option>
             <option value="efficiency">Efficiency</option>
+            <option value="statistics/allTrips">All Trips</option>
+            <option value="statistics/lastTrip">Last Trip</option>
         </select>
     </div>
 </script>

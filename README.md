@@ -121,24 +121,26 @@ For these nodes to work you need a car with BMW ConnectedDrive support and remot
 
 ## History
 
-- 2017-Dez-01: 0.1.0 - First prototype.
-- 2018-Jan-26: 0.1.1 - Remove verbose logging of token code.
-- 2019-Jun-17: 0.1.2 - Added diagnosis message if VIN has invalid format.
-- 2021-Sep-08: 0.2.0 - Refactored code to make token handling more stable. Token is no longer cached on disk.
+* 2017-Dez-01: 0.1.0 - First prototype.
+* 2018-Jan-26: 0.1.1 - Remove verbose logging of token code.
+* 2019-Jun-17: 0.1.2 - Added diagnosis message if VIN has invalid format.
+* 2021-Sep-08: 0.2.0
+  * Refactored code to make token handling more stable. Token is no longer cached on disk.
+  * Added possibility to get statistics of last trip and all trips.
 
 ## Credits
 
-- Sebastian Krauskopf (mail@sebakrau.de)
+* Sebastian Krauskopf (mail@sebakrau.de)
 
 This project is heavily influenced by the work of:
 
-- Nils Schneider (<https://github.com/Lyve1981/BMW-ConnectedDrive-JSON-Wrapper>)
-- Sergej Müller (<https://github.com/sergejmueller/battery.ebiene.de>)
-- Terence Eden (<https://github.com/edent/BMW-i-Remote>)
+* Nils Schneider (<https://github.com/Lyve1981/BMW-ConnectedDrive-JSON-Wrapper>)
+* Sergej Müller (<https://github.com/sergejmueller/battery.ebiene.de>)
+* Terence Eden (<https://github.com/edent/BMW-i-Remote>)
 
 ## Trademarks
 
-- "BMW ConnectedDrive" is a registered trademark of BMW AG.
+"BMW ConnectedDrive" is a registered trademark of BMW AG.
 
 ## Licenses
 

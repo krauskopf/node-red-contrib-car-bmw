@@ -58,8 +58,8 @@ module.exports = function(RED) {
   }
   RED.nodes.registerType("car-bmw", CarBmwNodeConfig, {
     credentials: {
-         username: {type:"text"},
-         password: {type:"password"}
+         username: {type: "text"},
+         password: {type: "password"}
        }
     });
 
@@ -199,7 +199,7 @@ module.exports = function(RED) {
   }
   RED.nodes.registerType("car-bmw-get", CarBmwNodeGet, {
     credentials: {
-         vin: {type:"text"}
+         vin: {type: "text"}
        }
     });
 

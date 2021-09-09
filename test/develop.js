@@ -84,7 +84,9 @@ async function testReadAll() {
       Bmw.GET_EFFICIENCY,
       Bmw.GET_CHARGING_PROFILE,
       Bmw.GET_SERVICE,
-      Bmw.GET_SERVICE_PARTNER
+      Bmw.GET_SERVICE_PARTNER,
+      Bmw.GET_STATISTICS_ALL_TRIPS,
+      Bmw.GET_STATISTICS_LAST_TRIP
     ];
 
     for (let key in list) {
@@ -126,7 +128,8 @@ async function testSimple() {
     await bmw.requestNewToken();
     console.log("Successfully authenticated");
 
-    let data = await bmw.getCarInfo(getVin(), Bmw.GET_SPECS);
+    let data = await bmw.getCarInfo(getVin(), Bmw.GET_STATISTICS_LAST_TRIP);
+
     console.log(JSON.stringify(data));
 
   } catch (err) {
