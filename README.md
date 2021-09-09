@@ -117,7 +117,8 @@ Example Output:
 
 ### Additional Information
 
-For these nodes to work you need a car with BMW ConnectedDrive support and remote services.
+* For these nodes to work you need a car with BMW ConnectedDrive support and remote services.
+* The different types of data that can be read depend on the type of car. Different cars support different services.
 
 ## History
 
@@ -126,7 +127,10 @@ For these nodes to work you need a car with BMW ConnectedDrive support and remot
 * 2019-Jun-17: 0.1.2 - Added diagnosis message if VIN has invalid format.
 * 2021-Sep-08: 0.2.0
   * Refactored code to make token handling more stable. Token is no longer cached on disk.
-  * Added possibility to get statistics of last trip and all trips.
+  * Added service to get statistics of last trip and all trips.
+  * Added service to get destinations.
+  * Added service to get car status.
+  * Fixed service to get charging profile.
 
 ## Credits
 
