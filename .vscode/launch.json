@@ -27,7 +27,6 @@
       "runtimeExecutable": null,
       "console": "integratedTerminal",
       "env": {
-        //"TEST_HOSTNAME": "www.bmw-connecteddrive.com",  // uncomment to override the hostname to test against (default: mockup on localhost)
         "DEBUG": "bmw",                                 // uncomment for additional debug logs
         "NODE_ENV": "testing"
       }

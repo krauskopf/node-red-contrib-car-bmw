@@ -131,6 +131,7 @@ Example Output:
   * Added service to get destinations.
   * Added service to get car status.
   * Fixed service to get charging profile.
+  * Server now selected by region.
 
 ## Credits
 

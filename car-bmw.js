@@ -37,7 +37,7 @@ module.exports = function(RED) {
     // Configuration options passed by Node Red
     this.name = config.name;
     this.debug = config.debug;
-    this.server = config.server;
+    this.region = config.region;
     if (this.credentials) {
       this.username = this.credentials.username;
       this.password = this.credentials.password;
@@ -45,7 +45,7 @@ module.exports = function(RED) {
 
     // Config node state
     this.closing = false;
-    this.bmw = new Bmw(this.server, this.username, this.password);
+    this.bmw = new Bmw('', this.username, this.password, this.region);
 
     // Define functions called by nodes
     let node = this;

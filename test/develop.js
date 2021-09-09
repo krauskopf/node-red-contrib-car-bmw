@@ -30,9 +30,6 @@ const Bmw = require('../lib/bmw');
 //
 // Credentials
 //
-function getHostname() {
-  return process.env.TEST_HOSTNAME || 'www.bmw-connecteddrive.com';
-}
 function getUsername() {
   return process.env.TEST_USERNAME;
 }
@@ -47,7 +44,7 @@ function getVin() {
 //
 // Globals
 //
-let bmw = new Bmw(getHostname(), getUsername(), getPassword());
+let bmw = new Bmw(getUsername(), getPassword());
 
 
 
@@ -129,7 +126,6 @@ async function testSimple() {
     console.log("Successfully authenticated");
 
     let data = await bmw.getCarInfo(getVin(), Bmw.GET_STATISTICS_LAST_TRIP);
-
     console.log(JSON.stringify(data));
 
   } catch (err) {
