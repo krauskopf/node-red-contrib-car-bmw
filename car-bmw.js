@@ -45,23 +45,23 @@ module.exports = function(RED) {
 
     // Config node state
     this.closing = false;
-    this.bmw = new Bmw('', this.username, this.password, this.region);
+    this.bmw = new Bmw(this.username, this.password, this.region);
 
     // Define functions called by nodes
     let node = this;
 
     // Define config node event listeners
-    node.on("close", function(done){
+    node.on("close", function(removed, done){
       node.closing = true;
       done();
     });
   }
   RED.nodes.registerType("car-bmw", CarBmwNodeConfig, {
     credentials: {
-         username: {type: "text"},
-         password: {type: "password"}
-       }
-    });
+      username: {type: "text"},
+      password: {type: "password"}
+    }
+  });
 
 
 
@@ -124,6 +124,12 @@ module.exports = function(RED) {
           });
 
       });
+
+      // Closing, get's called when new flow is deployed
+      node.on("close", function(removed, done){
+        done();
+      });
+
     } else {
       this.error(RED._("car-bmw.errors.missing-config"));
     }
@@ -193,14 +199,100 @@ module.exports = function(RED) {
 
       });
 
+      // Closing, get's called when new flow is deployed
+      node.on("close", function(removed, done){
+        done();
+      });
+
+
     } else {
       this.error(RED._("car-bmw.errors.missing-config"));
     }
   }
   RED.nodes.registerType("car-bmw-get", CarBmwNodeGet, {
     credentials: {
-         vin: {type: "text"}
-       }
-    });
+      vin: {type: "text"}
+      }
+  });
+
+
+
+  /* ---------------------------------------------------------------------------
+   * ACTION node
+   * -------------------------------------------------------------------------*/
+  function CarBmwNodeAction(config) {
+    RED.nodes.createNode(this, config);
+
+    // Save settings in local node
+    this.account = config.account;
+    this.configNode = RED.nodes.getNode(this.account);
+    this.name = config.name;
+    this.action = config.action;
+
+
+    let node = this;
+    if (this.configNode) {
+
+  		// Input handler, called on incoming flow
+      this.on('input', function(msg, send, done) {
+
+        let vin = node.credentials.vin;
+        if (msg.hasOwnProperty('vin')) {
+          vin = node.credentials.vin || msg.vin;
+        }
+        if (!Bmw.isValidVin(vin)) {
+          node.error('The VIN you have entered contains invalid characters. Please check.');
+          return;
+        }
+
+        /*
+        node.configNode.bmw.getCarInfo(vin, node.datatype)
+          .then((data) => {
+
+            // For maximum backwards compatibility, check that send exists.
+            // If this node is installed in Node-RED 0.x, it will need to
+            // fallback to using `node.send`
+            send = send || function() { node.send.apply(node, arguments) }
+
+            msg.payload = data;
+            msg.title = node.datatype;
+            msg.vin = vin;
+
+            send(msg);
+
+            // Once finished, call 'done'.
+            // This call is wrapped in a check that 'done' exists
+            // so the node will work in earlier versions of Node-RED (<1.0)
+            if (done) {
+              done();
+            }
+          })
+          .catch((err) => {
+            if (done) {
+              done(err); // Node-RED 1.0 compatible
+            } else {
+              node.error(err, msg); // Node-RED 0.x compatible
+            }
+          });
+          */
+
+      });
+
+      // Closing, get's called when new flow is deployed
+      node.on("close", function(removed, done){
+        done();
+      });
+
+    } else {
+      this.error(RED._("car-bmw.errors.missing-config"));
+    }
+  }
+  /*
+  RED.nodes.registerType("car-bmw-action", CarBmwNodeAction, {
+    credentials: {
+      vin: {type: "text"}
+    }
+  });
+  */
 
 };

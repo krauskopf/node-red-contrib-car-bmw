@@ -16,7 +16,7 @@
       password: {type: "password"}
     },
     label: function() {
-      return this.name ? this.name : 'BMW ConnectedDrive';
+      return this.name ? this.name : "BMW ConnectedDrive";
     }
   });
 </script>
@@ -35,7 +35,7 @@
         <input type="password" id="node-config-input-password" />
     </div>
     <div class="form-row">
-      <label for="node-input-region"><i class="fa fa-file-text-o"></i> Region</label>
+      <label for="node-input-region"><i class="fa fa-globe"></i> Region</label>
       <select id="node-input-region" style="width:70%">
           <option value=0>Rest of World</option>
           <option value=1>USA</option>
@@ -156,18 +156,17 @@
       }
 
       var text = {
-        'service':                          'Services',
-        'specs':                            'Specifications',
-        'dynamic':                          'Dynamic',
-        'navigation':                       'Navigation',
-        'chargingprofile':                  'Charging Profile',
-        'servicepartner':                   'Service Partner',
-        'efficiency':                       'Efficiency',
-        'statistics/allTrips':              'All Trips',
-        'statistics/lastTrip':              'Last Trip',
-        'status':                           'Status',
-        'destinations':                     'Destinations'
-
+        "service":                          "Services",
+        "specs":                            "Specifications",
+        "dynamic":                          "Dynamic",
+        "navigation":                       "Navigation",
+        "chargingprofile":                  "Charging Profile",
+        "servicepartner":                   "Service Partner",
+        "efficiency":                       "Efficiency",
+        "statistics/allTrips":              "All Trips",
+        "statistics/lastTrip":              "Last Trip",
+        "status":                           "Status",
+        "destinations":                     "Destinations"
       };
 
       return "" + text[this.datatype];
@@ -223,6 +222,103 @@
 
   <h3>Details</h3>
     <p>The GET node is used to read the current state of a car. Select the desired data type to read in the editor panel.
+    You also have to specify the VIN (vehicle identification number) of your car. You can get the VIN of your car by looking in your
+    documents of by using the List node.<br>
+    If no VIN is given in the node configuration panel, then the vin in <code>msg.vin</code> is used.</p>
+
+  <h3>References</h3>
+    <ul>
+      <li><a href="https://github.com/krauskopf/node-red-contrib-car-bmw">GitHub</a> - the nodes github repository</li>
+    </ul>
+</script>
+
+
+
+
+
+<!--
+
+  CAR BMW - "action" node to trigger remote service of the car.
+
+-->
+<script type="text/javascript">
+/*
+  RED.nodes.registerType("car-bmw-action", {
+    category: "BMW",
+    color: "#2E9BDA",
+    icon: "car.png",
+    defaults: {
+      account: {type: "car-bmw", required: true},
+      name: {value: "", required:false},
+      action: {value: "RLF", required: true}
+    },
+    credentials: {
+      vin: {type: "text", required: true}
+    },
+    inputs: 1,
+    outputs: 1,
+    paletteLabel: "BMW Action",
+    label: function() {
+      if (this.name) {
+        return this.name;
+      }
+
+      var text = {
+        "RLF": "Flash Headlights",
+        "RHB": "Honk",
+        "RDL": "Lock Door",
+        "RDU": "Unlock Door",
+        "RCN": "Climate"
+      };
+
+      return "Action: " + text[this.action];
+    }
+  });
+  */
+</script>
+
+<script type="text/x-red" data-template-name="car-bmw-action">
+    <div class="form-row">
+        <label for="node-input-account"><i class="fa fa-sign-in"></i> Account</label>
+        <input type="text" id="node-input-account">
+    </div>
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" />
+    </div>
+    <div class="form-row">
+        <label for="node-input-vin"><i class="fa fa-car"></i> VIN</label>
+        <input type="text" id="node-input-vin" placeholder="e.g. WBSXXXXXXXV123456"/>
+    </div>
+    <div class="form-row">
+        <label for="node-input-action"><i class="fa fa-car"></i> Action</label>
+        <select id="node-input-action" style="width:70%">
+            <option value="RLF">Flash Headlights</option>
+            <option value="RHB">Honk</option>
+            <option value="RDL">Lock Door</option>
+            <option value="RDU">Unlock Door</option>
+            <option value="RCN">Climate</option>
+        </select>
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="car-bmw-action">
+  <p>Trigger an action on your car.</p>
+
+  <h3>Inputs</h3>
+    <dl class="message-properties">
+      <dt class="optional">vin <span class="property-type">string</span></dt>
+      <dd> if not set in the node configuration panel, this property specifies the VIN (vehicle identification number) of the car to read the infos from.</dd>
+    </dl>
+
+  <h3>Outputs</h3>
+    <dl class="message-properties">
+      <dt>payload <span class="property-type">object</span></dt>
+      <dd> the return value. An object which has multiple properties with the data as returned from the ConnectedDrive server.</dd>
+    </dl>
+
+  <h3>Details</h3>
+    <p>The ACTION node is used to trigger a remote service of a car. Select the desired ction in the editor panel.
     You also have to specify the VIN (vehicle identification number) of your car. You can get the VIN of your car by looking in your
     documents of by using the List node.<br>
     If no VIN is given in the node configuration panel, then the vin in <code>msg.vin</code> is used.</p>
