@@ -242,7 +242,6 @@
 
 -->
 <script type="text/javascript">
-/*
   RED.nodes.registerType("car-bmw-action", {
     category: "BMW",
     color: "#2E9BDA",
@@ -265,16 +264,17 @@
 
       var text = {
         "RLF": "Flash Headlights",
-        "RHB": "Honk",
+        "RHB": "Blow Horn",
         "RDL": "Lock Door",
         "RDU": "Unlock Door",
-        "RCN": "Climate"
+        "RCN": "Climate Start",
+        "RCNSTOP": "Climate Start",
+        "RVF": "Vehicle Finder"
       };
 
       return "Action: " + text[this.action];
     }
   });
-  */
 </script>
 
 <script type="text/x-red" data-template-name="car-bmw-action">
@@ -294,10 +294,12 @@
         <label for="node-input-action"><i class="fa fa-car"></i> Action</label>
         <select id="node-input-action" style="width:70%">
             <option value="RLF">Flash Headlights</option>
-            <option value="RHB">Honk</option>
+            <option value="RHB">Blow Horn</option>
             <option value="RDL">Lock Door</option>
             <option value="RDU">Unlock Door</option>
-            <option value="RCN">Climate</option>
+            <option value="RCN">Climate Start</option>
+            <option value="RCNSTOP">Climate Stop</option>
+            <option value="RVF">Vehicle Finder</option>
         </select>
     </div>
 </script>
@@ -318,7 +320,7 @@
     </dl>
 
   <h3>Details</h3>
-    <p>The ACTION node is used to trigger a remote service of a car. Select the desired ction in the editor panel.
+    <p>The ACTION node is used to trigger a remote service of a car. Select the desired action in the editor panel.
     You also have to specify the VIN (vehicle identification number) of your car. You can get the VIN of your car by looking in your
     documents of by using the List node.<br>
     If no VIN is given in the node configuration panel, then the vin in <code>msg.vin</code> is used.</p>

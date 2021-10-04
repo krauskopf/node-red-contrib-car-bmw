@@ -245,9 +245,14 @@ module.exports = function(RED) {
           return;
         }
 
-        /*
-        node.configNode.bmw.getCarInfo(vin, node.datatype)
+        node.configNode.bmw.executeRemoteService(vin, node.action)
           .then((data) => {
+
+
+            // TODO: Implement blocking until remote service has finished here
+
+
+
 
             // For maximum backwards compatibility, check that send exists.
             // If this node is installed in Node-RED 0.x, it will need to
@@ -255,7 +260,6 @@ module.exports = function(RED) {
             send = send || function() { node.send.apply(node, arguments) }
 
             msg.payload = data;
-            msg.title = node.datatype;
             msg.vin = vin;
 
             send(msg);
@@ -274,7 +278,6 @@ module.exports = function(RED) {
               node.error(err, msg); // Node-RED 0.x compatible
             }
           });
-          */
 
       });
 
@@ -287,12 +290,10 @@ module.exports = function(RED) {
       this.error(RED._("car-bmw.errors.missing-config"));
     }
   }
-  /*
   RED.nodes.registerType("car-bmw-action", CarBmwNodeAction, {
     credentials: {
       vin: {type: "text"}
     }
   });
-  */
 
 };

@@ -27,7 +27,7 @@ Install using the managed palette from inside Node-RED.
 
 ## Usage
 
-There are 2 new nodes which appear in the category 'BMW' in your Node-Red palette.
+There are 3 new nodes which appear in the category 'BMW' in your Node-Red palette.
 
 ![nodes.png](./doc/nodes.png)
 
@@ -115,6 +115,18 @@ Example Output:
         ]}
     }
 
+### BMW Action
+
+Can be used to trigger a remote service on the car. This includes:
+
+* Flash headlights
+* Blow horn
+* Lock door
+* Unlock door
+* Start climate
+* Stop climate
+* Find vehicle (update location)
+
 ### Additional Information
 
 * For these nodes to work you need a car with BMW ConnectedDrive support and remote services.
@@ -132,6 +144,8 @@ Example Output:
   * Added service to get car status.
   * Fixed service to get charging profile.
   * Server now selected by region.
+* 2021-Oct-04: 0.3.0
+  * Added new node "BMW Action" to trigger a remote service on the car.
 
 ## Credits
 
@@ -142,6 +156,7 @@ This project is heavily influenced by the work of:
 * Nils Schneider (<https://github.com/Lyve1981/BMW-ConnectedDrive-JSON-Wrapper>)
 * Sergej Müller (<https://github.com/sergejmueller/battery.ebiene.de>)
 * Terence Eden (<https://github.com/edent/BMW-i-Remote>)
+* bimmer_connected (<https://github.com/bimmerconnected/bimmer_connected>)
 
 ## Trademarks
 

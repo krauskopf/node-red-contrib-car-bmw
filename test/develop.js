@@ -30,6 +30,7 @@ const Bmw = require('../lib/bmw');
 //
 // Credentials
 //
+
 function getUsername() {
   return process.env.TEST_USERNAME;
 }
@@ -39,6 +40,7 @@ function getPassword() {
 function getVin() {
   return process.env.TEST_VIN;
 }
+
 
 
 //
@@ -135,6 +137,22 @@ async function testSimple() {
 }
 
 
+async function develop() {
+
+  try {
+    await bmw.requestNewToken();
+    console.log("Successfully authenticated");
+
+    let data = await bmw.executeRemoteService(getVin(), Bmw.SERVICE_FLASH_HEADLIGHTS);
+    console.log(JSON.stringify(data));
+
+  } catch (err) {
+    console.error('Housten we are in trouble: ' + err);
+  }
+
+}
+
+
 //
 // Exports
 //
@@ -148,3 +166,4 @@ exports.testCarList = testCarList;
 //testReadAll();
 //testSimple();
 //testCarList();
+//develop();
