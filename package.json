@@ -1,6 +1,6 @@
 {
   "name": "node-red-contrib-car-bmw",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "Node-RED nodes to connect to BMW ConnectedDrive and read infos of your car.",
   "dependencies": {
     "debug": "^4.1.1"
