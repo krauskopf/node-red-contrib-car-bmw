@@ -11,7 +11,7 @@
       "skipFiles": [
           "<node_internals>/**"
       ],
-      "program": "D:/programs/nodered/red.js",
+      "program": "c:/apps/node-red-1.2.6/node-red/red.js",
       "env": {
         "DEBUG": "bmw",                                 // uncomment for additional debug logs
         "NODE_ENV": "testing"

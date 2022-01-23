@@ -146,6 +146,7 @@ Can be used to trigger a remote service on the car. This includes:
   * Server now selected by region.
 * 2021-Oct-04: 0.3.0
   * Added new node "BMW Action" to trigger a remote service on the car.
+* 2022-Jan-22: 0.3.1 - Fix to support new API from "my BMW" (charging-statistics, charging-sessions).
 
 ## Credits
 
