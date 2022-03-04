@@ -148,6 +148,8 @@ Can be used to trigger a remote service on the car. This includes:
   * Added new node "BMW Action" to trigger a remote service on the car.
 * 2022-Jan-22: 0.3.1 - Fix to support new API from "my BMW" (charging-statistics, charging-sessions).
 * 2022-Jan-23: 0.3.2 - Added new remote command "Charge Now".
+* 2022-Jan-23: 0.3.3 - Cleanup and additional error message.
+* 2022-Mar-04: 0.4.0 - Add mew authorization code from myBMW API.
 
 ## Credits
 
