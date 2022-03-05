@@ -131,6 +131,15 @@ Can be used to trigger a remote service on the car. This includes:
 
 * For these nodes to work you need a car with BMW ConnectedDrive support and remote services.
 * The different types of data that can be read depend on the type of car. Different cars support different services.
+* If you are getting an error response from the server with an 'http statusCode', then this code might be interpreted as follows:
+  * 401: 'UNAUTHORIZED',
+  * 404: 'NOT_FOUND',
+  * 405: 'MOBILE_ACCESS_DISABLED',
+  * 408: 'VEHICLE_UNAVAILABLE',
+  * 423: 'ACCOUNT_LOCKED',
+  * 429: 'TOO_MANY_REQUESTS',
+  * 500: 'SERVER_ERROR',
+  * 503: 'SERVICE_MAINTENANCE',
 
 ## History
 
@@ -149,7 +158,8 @@ Can be used to trigger a remote service on the car. This includes:
 * 2022-Jan-22: 0.3.1 - Fix to support new API from "my BMW" (charging-statistics, charging-sessions).
 * 2022-Jan-23: 0.3.2 - Added new remote command "Charge Now".
 * 2022-Jan-23: 0.3.3 - Cleanup and additional error message.
-* 2022-Mar-04: 0.4.0 - Add mew authorization code from myBMW API.
+* 2022-Mar-04: 0.4.0 - Add new authorization code from myBMW API.
+* 2022-Mar-05: 0.4.1 - Minor cleanup of code and fix of error messages.
 
 ## Credits
 
@@ -161,6 +171,7 @@ This project is heavily influenced by the work of:
 * Sergej Müller (<https://github.com/sergejmueller/battery.ebiene.de>)
 * Terence Eden (<https://github.com/edent/BMW-i-Remote>)
 * bimmer_connected (<https://github.com/bimmerconnected/bimmer_connected>)
+* bluewalk (<https://github.com/bluewalk/BMWConnecteDrive/blob/master/ConnectedDrive.php>)
 
 ## Trademarks
 
@@ -170,7 +181,7 @@ This project is heavily influenced by the work of:
 
 The MIT License (MIT)
 
-Copyright (c) 2017-2021 sebakrau (mail@sebakrau.de)
+Copyright (c) 2017-2022 sebakrau (mail@sebakrau.de)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
