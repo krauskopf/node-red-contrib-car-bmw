@@ -9,6 +9,7 @@
     defaults: {
       name: {value: "", required: false},
       region: {value: 0, required: true},
+      unit: {value: "metric", required: true},
       debug: {value: false, required: true}
     },
     credentials: {
@@ -41,7 +42,14 @@
           <option value=1>USA</option>
           <option value=2>China</option>
       </select>
-  </div>
+    </div>
+    <div class="form-row">
+      <label for="node-config-input-unit"><i class="fa fa-balance-scale"></i> Mengeneinheit</label>
+      <select id="node-config-input-unit" style="width:70%">
+          <option value=metric>km &amp; l</option>
+          <option value=imperial>mi &amp; gal</option>
+      </select>
+    </div>
     <div class="form-row">
       <label>&nbsp;</label>
       <input type="checkbox" id="node-config-input-debug" style="display: inline-block; width: auto; vertical-align: top;">

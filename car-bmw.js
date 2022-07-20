@@ -38,6 +38,7 @@ module.exports = function(RED) {
     this.name = config.name;
     this.debug = config.debug;
     this.region = config.region;
+    this.unit = config.unit;
     if (this.credentials) {
       this.username = this.credentials.username;
       this.password = this.credentials.password;
@@ -45,7 +46,7 @@ module.exports = function(RED) {
 
     // Config node state
     this.closing = false;
-    this.bmw = new Bmw(this.username, this.password, this.region);
+    this.bmw = new Bmw(this.username, this.password, this.region, this.unit);
 
     // Define functions called by nodes
     let node = this;
