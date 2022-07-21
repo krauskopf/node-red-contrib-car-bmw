@@ -161,6 +161,7 @@ Can be used to trigger a remote service on the car. This includes:
 * 2022-Mar-04: 0.4.0 - Add new authorization code from myBMW API.
 * 2022-Mar-05: 0.4.1 - Minor cleanup of code and fix of error messages.
 * 2022-May-30: 0.4.2 - Fix authentication error 403 due to new user-agent, thanks to @dzett and @jkellerer
+* 2022-Jul-21: 0.4.3 - Make unit selectable between metric and imperial, thanks to @oemich
 
 ## Credits
 
@@ -173,6 +174,7 @@ This project is heavily influenced by the work of:
 * Terence Eden (<https://github.com/edent/BMW-i-Remote>)
 * bimmer_connected (<https://github.com/bimmerconnected/bimmer_connected>)
 * bluewalk (<https://github.com/bluewalk/BMWConnecteDrive/blob/master/ConnectedDrive.php>)
+* oemich (<https://github.com/oemich>)
 
 Thanks for contributions from:
 

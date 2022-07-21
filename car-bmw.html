@@ -44,7 +44,7 @@
       </select>
     </div>
     <div class="form-row">
-      <label for="node-config-input-unit"><i class="fa fa-balance-scale"></i> Mengeneinheit</label>
+      <label for="node-config-input-unit"><i class="fa fa-balance-scale"></i> Units</label>
       <select id="node-config-input-unit" style="width:70%">
           <option value=metric>km &amp; l</option>
           <option value=imperial>mi &amp; gal</option>
@@ -165,12 +165,12 @@
 
       var text = {
         "service":                          "Services",
-        "specs":                            "Specifications",
-        "dynamic":                          "Dynamic",
-        "navigation":                       "Navigation",
+        "specs":                            "Specifications \u2020",
+        "dynamic":                          "Dynamic \u2020",
+        "navigation":                       "Navigation \u2020",
         "chargingprofile":                  "Charging Profile \u2020",
         "servicepartner":                   "Service Partner",
-        "efficiency":                       "Efficiency",
+        "efficiency":                       "Efficiency \u2020",
         "statistics/allTrips":              "All Trips \u2020",
         "statistics/lastTrip":              "Last Trip \u2020",
         "status":                           "Status \u2020",
@@ -201,11 +201,11 @@
         <label for="node-input-datatype"><i class="fa fa-file-text-o"></i> Data type</label>
         <select id="node-input-datatype" style="width:70%">
             <option value="service">Services</option>
-            <option value="specs">Specifications</option>
-            <option value="dynamic">Dynamic</option>
-            <option value="navigation">Navigation</option>
+            <!--<option value="specs">Specifications</option>-->
+            <!--<option value="dynamic">Dynamic</option>-->
+            <!--<option value="navigation">Navigation</option>-->
             <option value="servicepartner">Service Partner</option>
-            <option value="efficiency">Efficiency</option>
+            <!--<option value="efficiency">Efficiency</option>-->
             <option value="charging-statistics">Charging Statistics</option>
             <option value="charging-sessions">Charging Sessions</option>
         </select>
