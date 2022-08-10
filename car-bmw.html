@@ -8,7 +8,7 @@
     category: "config",
     defaults: {
       name: {value: "", required: false},
-      region: {value: 0, required: true},
+      region: {value: "0", required: true},
       unit: {value: "metric", required: true},
       debug: {value: false, required: true}
     },
@@ -36,8 +36,8 @@
         <input type="password" id="node-config-input-password" />
     </div>
     <div class="form-row">
-      <label for="node-input-region"><i class="fa fa-globe"></i> Region</label>
-      <select id="node-input-region" style="width:70%">
+      <label for="node-config-input-region"><i class="fa fa-globe"></i> Region</label>
+      <select id="node-config-input-region" style="width:70%">
           <option value=0>Rest of World</option>
           <option value=1>USA</option>
           <option value=2>China</option>
