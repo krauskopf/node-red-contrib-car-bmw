@@ -162,7 +162,7 @@ Can be used to trigger a remote service on the car. This includes:
 * 2022-Mar-05: 0.4.1 - Minor cleanup of code and fix of error messages.
 * 2022-May-30: 0.4.2 - Fix authentication error 403 due to new user-agent, thanks to @dzett and @jkellerer
 * 2022-Jul-21: 0.4.4 - Make unit selectable between metric and imperial, thanks to @oemich
-* 2022-Aug-07: 0.4.5 - fix region setting, thanks to @oemich
+* 2022-Aug-07: 0.4.6 - fix region setting, thanks to @oemich
 
 ## Credits
 
