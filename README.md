@@ -177,6 +177,7 @@ This project is heavily influenced by the work of:
 * bimmer_connected (<https://github.com/bimmerconnected/bimmer_connected>)
 * bluewalk (<https://github.com/bluewalk/BMWConnecteDrive/blob/master/ConnectedDrive.php>)
 * oemich (<https://github.com/oemich>)
+* amuehlhause (<https://github.com/amuehlhause>)
 
 Thanks for contributions from:
 
