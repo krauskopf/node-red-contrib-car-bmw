@@ -278,7 +278,8 @@
         "RCN": "Climate Start",
         "RCNSTOP": "Climate Stop",
         "RVF": "Vehicle Finder",
-        "CHARGE_NOW": "Charge Now"
+        "CHARGE_NOW": "Charge Now",
+        "CHANGE_CHARGING_MODE": "Change Charging Mode"
       };
 
       return "Action: " + text[this.action];
@@ -310,6 +311,7 @@
             <option value="RCNSTOP">Climate Stop</option>
             <option value="RVF">Vehicle Finder</option>
             <option value="CHARGE_NOW">Charge Now</option>
+            <option value="CHANGE_CHARGING_MODE">Change Charging Mode</option>
         </select>
     </div>
 </script>
@@ -323,6 +325,11 @@
       <dd> if not set in the node configuration panel, this property specifies the VIN (vehicle identification number) of the car to read the infos from.</dd>
     </dl>
 
+    <dl class="message-properties">
+      <dt class="optional">payload <span class="property-type">string</span></dt>
+      <dd> If provided, this property specifies the JSON payload body which will be sent to the car.</dd>
+    </dl>
+
   <h3>Outputs</h3>
     <dl class="message-properties">
       <dt>payload <span class="property-type">object</span></dt>
@@ -333,7 +340,8 @@
     <p>The ACTION node is used to trigger a remote service of a car. Select the desired action in the editor panel.
     You also have to specify the VIN (vehicle identification number) of your car. You can get the VIN of your car by looking in your
     documents of by using the List node.<br>
-    If no VIN is given in the node configuration panel, then the vin in <code>msg.vin</code> is used.</p>
+    If no VIN is given in the node configuration panel, then the vin in <code>msg.vin</code> is used.<br>
+    For some remote services (such as "Change Charging Mode") a payload body hast to be provided in <code>msg.payload</code> which is sent to the car in this case.</p>
 
   <h3>References</h3>
     <ul>
