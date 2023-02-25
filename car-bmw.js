@@ -238,15 +238,19 @@ module.exports = function(RED) {
       this.on('input', function(msg, send, done) {
 
         let vin = node.credentials.vin;
+        let payload;
         if (msg.hasOwnProperty('vin')) {
           vin = node.credentials.vin || msg.vin;
+        }
+        if (msg.hasOwnProperty('payload')) {
+          payload = msg.payload;
         }
         if (!Bmw.isValidVin(vin)) {
           node.error('The VIN you have entered contains invalid characters. Please check.');
           return;
         }
 
-        node.configNode.bmw.executeRemoteService(vin, node.action)
+        node.configNode.bmw.executeRemoteService(vin, node.action, payload)
           .then((data) => {
 
 
