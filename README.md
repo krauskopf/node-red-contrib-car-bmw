@@ -164,6 +164,7 @@ Can be used to trigger a remote service on the car. This includes:
 * 2022-Jul-21: 0.4.4 - Make unit selectable between metric and imperial, thanks to @oemich
 * 2022-Aug-07: 0.4.6 - fix region setting, thanks to @oemich
 * 2023-Feb-12: 0.4.7 - fix "Climate Stop" action, thanks to @amuehlhause
+* 2023-Jul-03: 0.5.0 - Adopt BMW APIv4 to fix http 404, thanks to @jkellerer
 
 ## Credits
 
@@ -178,6 +179,7 @@ This project is heavily influenced by the work of:
 * bluewalk (<https://github.com/bluewalk/BMWConnecteDrive/blob/master/ConnectedDrive.php>)
 * oemich (<https://github.com/oemich>)
 * amuehlhause (<https://github.com/amuehlhause>)
+* jkellerer (<https://github.com/jkellerer>)
 
 Thanks for contributions from:
 
@@ -192,7 +194,7 @@ Thanks for contributions from:
 
 The MIT License (MIT)
 
-Copyright (c) 2017-2022 sebakrau (mail@sebakrau.de)
+Copyright (c) 2017-2023 sebakrau (mail@sebakrau.de)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
