@@ -38,3 +38,5 @@ node_modules
 
 # Config data
 currenttoken.json
+
+gh.exe
