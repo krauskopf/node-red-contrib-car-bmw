@@ -1,9 +1,6 @@
 # Node-RED nodes for BMW ConnectedDrive
 
 [![npm version](https://badge.fury.io/js/node-red-contrib-car-bmw.svg)](https://badge.fury.io/js/node-red-contrib-car-bmw)
-[![Build Status](https://travis-ci.org/krauskopf/node-red-contrib-car-bmw.svg?branch=master)](https://travis-ci.org/krauskopf/node-red-contrib-car-bmw)
-
-[![NPM](https://nodei.co/npm/node-red-contrib-car-bmw.png?compact=true)](https://nodei.co/npm/node-red-contrib-car-bmw/)
 
 This package contains nodes to easily connect to BMW ConnectedDrive and read out informations about your vehicles.
 
@@ -37,25 +34,52 @@ Reads the list of cars, that are assigned to a BMW ConnectedDrive account.
 
 Example Output:
 
-    {
-      "series":"2",
-      "basicType":"M2",
-      "bodyType":"Coupe",
-      "brand":"BMW",
-      "modelName":"M2",
-      "vin":"WBSXXX",
-      "licensePlate":"M2",
-      "modelYearNA":null,
-      "dcOnly":false,
-      "hasNavi":true,
-      "hasSunRoof":false,
-      "doorCount":2,
-      "maxFuel":null,
-      "hasRex":false,
-      "steering":"LEFT",
-      "driveTrain":"CONV",
-      "supportedChargingModes":[]
+```JSON
+{
+    "vin": "WBA123456789",
+    "mappingInfo": {
+        "isAssociated": false,
+        "isLmmEnabled": false,
+        "mappingStatus": "CONFIRMED",
+        "isPrimaryUser": true
+    },
+    "appVehicleType": "CONNECTED",
+    "attributes": {
+        "lastFetched": "2023-07-30T16:06:26.864Z",
+        "model": "330e",
+        "year": 2021,
+        "color": 4283783516,
+        "brand": "BMW",
+        "driveTrain": "PLUGIN_HYBRID",
+        "headUnitType": "MGU",
+        "headUnitRaw": "HU_MGU",
+        "hmiVersion": "ID7",
+        "softwareVersionCurrent": {
+            "puStep": {
+                "month": 3,
+                "year": 23
+            },
+            "iStep": 550,
+            "seriesCluster": "S18A"
+        },
+        "softwareVersionExFactory": {
+            "puStep": {
+                "month": 3,
+                "year": 21
+            },
+            "iStep": 530,
+            "seriesCluster": "S18A"
+        },
+        "telematicsUnit": "ATM2",
+        "bodyType": "G21",
+        "countryOfOrigin": "DE",
+        "driverGuideInfo": {
+            "androidAppScheme": "com.bmwgroup.driversguide.row",
+            "iosAppScheme": "bmwdriversguide:///open"
+        }
     }
+}
+```
 
 ### BMW Get
 
@@ -63,57 +87,143 @@ Read different informations about your car.
 
 Example Output:
 
-    {
-    "attributesMap": {
-        "updateTime_converted": "13.06.2019 16:56",
-        "DCS_CCH_Ongoing ": null,
-        "updateTime_converted_timestamp": "1560444966000",
-        "gps_lat": "11.1111",
-        "trunk_state": "CLOSED",
-        "door_lock_state": "UNLOCKED",
-        "condition_based_services": "00003,OK,2019-12,;00032,OK,2019-12,;00001,OK,2021-01,29000;00100,OK,2021-01,29000",
-        "vehicle_tracking": "1",
-        "hood_state": "CLOSED",
-        "door_passenger_front": "CLOSED",
-        "lastUpdateReason": "VEHCSHUTDOWN",
-        "check_control_messages": "",
-        "beRemainingRangeFuel": "511.0",
-        "lights_parking": "OFF",
-        "lsc_trigger": "VEHCSHUTDOWN",
-        "unitOfEnergy": "kWh",
-        "beRemainingRangeFuelKm": "511.0",
-        "kombi_current_remaining_range_fuel": "511",
-        "window_passenger_front": "CLOSED",
-        "unitOfElectricConsumption": "kWh/100km",
-        "door_driver_front": "CLOSED",
-        "mileage": "12345",
-        "head_unit_pu_software": "03/18",
-        "updateTime": "13.06.2019 16:56:06 UTC",
-        "DCS_CCH_Activation": null,
-        "head_unit": "NBTEvo",
-        "remaining_fuel": "43",
-        "updateTime_converted_time": "16:56",
-        "window_driver_front": "CLOSED",
-        "beRemainingRangeFuelMile": "317.0",
-        "gps_lng": "2.222222",
-        "unitOfCombustionConsumption": "l/100km",
-        "updateTime_converted_date": "13.06.2019",
-        "unitOfLength": "km",
-        "heading": "193"
-    },
-    "vehicleMessages": {
-        "ccmMessages": [],
-        "cbsMessages": [
-            {
-                "description": "Nächster Wechsel spätestens zum angegebenen Termin.",
-                "text": "Bremsflüssigkeit",
-                "id": 3,
+```JSON
+{
+    "state": {
+        "isLeftSteering": true,
+        "lastFetched": "2023-07-30T15:51:17.326Z",
+        "lastUpdatedAt": "2023-07-19T16:46:08Z",
+        "isLscSupported": true,
+        "range": 415,
+        "doorsState": {
+            "combinedSecurityState": "UNLOCKED",
+            "leftFront": "CLOSED",
+            "rightFront": "CLOSED",
+            "combinedState": "CLOSED",
+            "hood": "CLOSED",
+            "trunk": "CLOSED"
+        },
+        "windowsState": {
+            "leftFront": "CLOSED",
+            "rightFront": "CLOSED",
+            "combinedState": "CLOSED"
+        },
+        "location": {
+            "coordinates": {
+                "latitude": xx.yy,
+                "longitude": ac.dc
+            },
+            "address": {
+                "formatted": "Roßfeldstraße, 83471 Eck"
+            },
+            "heading": 190
+        },
+        "currentMileage": 72467,
+        "requiredServices": [{
+                "dateTime": "2023-10-01T00:00:00.000Z",
+                "type": "BRAKE_FLUID",
                 "status": "OK",
-                "messageType": "CBS",
-                "date": "2019-12"
+                "description": "Next service due by the specified date."
             }
-        ]}
+        ],
+        "checkControlMessages": [{
+                "type": "ENGINE_OIL",
+                "severity": "LOW"
+            }
+        ],
+        "combustionFuelLevel": {
+            "remainingFuelLiters": 37,
+            "range": 415
+        },
+        "driverPreferences": {
+            "lscPrivacyMode": "OFF"
+        },
+        "climateTimers": [{
+                "isWeeklyTimer": false,
+                "timerAction": "DEACTIVATE",
+                "timerWeekDays": [],
+                "departureTime": {
+                    "hour": 7,
+                    "minute": 0
+                }
+            }, {
+                "isWeeklyTimer": true,
+                "timerAction": "DEACTIVATE",
+                "timerWeekDays": [
+                    "MONDAY"
+                ],
+                "departureTime": {
+                    "hour": 7,
+                    "minute": 0
+                }
+            }, {
+                "isWeeklyTimer": true,
+                "timerAction": "DEACTIVATE",
+                "timerWeekDays": [
+                    "MONDAY"
+                ],
+                "departureTime": {
+                    "hour": 7,
+                    "minute": 0
+                }
+            }
+        ]
+    },
+    "capabilities": {
+        "a4aType": "BLUETOOTH",
+        "climateNow": true,
+        "isClimateTimerSupported": true,
+        "climateTimerTrigger": "START_TIMER",
+        "climateFunction": "VENTILATION",
+        "horn": true,
+        "isBmwChargingSupported": false,
+        "isCarSharingSupported": false,
+        "isChargeNowForBusinessSupported": false,
+        "isChargingHistorySupported": false,
+        "isChargingHospitalityEnabled": false,
+        "isChargingLoudnessEnabled": false,
+        "isChargingPlanSupported": false,
+        "isChargingPowerLimitEnabled": false,
+        "isChargingSettingsEnabled": false,
+        "isChargingTargetSocEnabled": false,
+        "isCustomerEsimSupported": false,
+        "isDataPrivacyEnabled": false,
+        "isDCSContractManagementSupported": false,
+        "isEasyChargeEnabled": false,
+        "isMiniChargingSupported": false,
+        "isEvGoChargingSupported": false,
+        "isRemoteHistoryDeletionSupported": false,
+        "isRemoteEngineStartSupported": false,
+        "isRemoteServicesActivationRequired": false,
+        "isRemoteServicesBookingRequired": false,
+        "isScanAndChargeSupported": false,
+        "lastStateCallState": "ACTIVATED",
+        "lights": true,
+        "lock": true,
+        "sendPoi": true,
+        "unlock": true,
+        "vehicleFinder": true,
+        "vehicleStateSource": "LAST_STATE_CALL",
+        "isRemoteHistorySupported": true,
+        "isWifiHotspotServiceSupported": false,
+        "isNonLscFeatureEnabled": false,
+        "isSustainabilitySupported": false,
+        "isSustainabilityAccumulatedViewEnabled": false,
+        "specialThemeSupport": [],
+        "isRemoteParkingSupported": false,
+        "remoteChargingCommands": {},
+        "isClimateTimerWeeklyActive": false,
+        "digitalKey": {
+            "state": "NOT_AVAILABLE",
+            "vehicleSoftwareUpgradeRequired": false,
+            "bookedServicePackage": "NONE"
+        },
+        "isPersonalPictureUploadSupported": false,
+        "isPlugAndChargeSupported": false,
+        "isOptimizedChargingSupported": false
     }
+}
+```
 
 ### BMW Action
 
@@ -132,29 +242,74 @@ Can be used to trigger a remote service on the car. This includes:
 * For these nodes to work you need a car with BMW ConnectedDrive support and remote services.
 * The different types of data that can be read depend on the type of car. Different cars support different services.
 * If you are getting an error response from the server with an 'http statusCode', then this code might be interpreted as follows:
-  * 401: 'UNAUTHORIZED',
-  * 404: 'NOT_FOUND',
-  * 405: 'MOBILE_ACCESS_DISABLED',
-  * 408: 'VEHICLE_UNAVAILABLE',
-  * 423: 'ACCOUNT_LOCKED',
-  * 429: 'TOO_MANY_REQUESTS',
-  * 500: 'SERVER_ERROR',
-  * 503: 'SERVICE_MAINTENANCE',
+  * 401: 'UNAUTHORIZED'
+  * 404: 'NOT_FOUND'
+  * 405: 'MOBILE_ACCESS_DISABLED'
+  * 408: 'VEHICLE_UNAVAILABLE'
+  * 423: 'ACCOUNT_LOCKED'
+  * 429: 'TOO_MANY_REQUESTS'
+  * 500: 'SERVER_ERROR'
+  * 503: 'SERVICE_MAINTENANCE'
+
+## Release Notes
+
+### v0.5.0 - Upgrade to BMW v4 API
+
+The version 0.5.0 introduced a major breaking change in order to upgrade to the new BMW v4 API endpoints. The old v1 version
+of the API is discontinuied by BMW.
+The returned data structure differs and mapping the data internally does not make much sense. Most data is similar but not all is the same.
+
+Example of the structural changes:
+
+| New data path (V4)                               | Old path (V1)                                      |
+| ------------------------------------------------ | -------------------------------------------------- |
+| attributes.brand                                 | brand                                              |
+| attributes.model                                 | model                                              |
+| attributes.softwareVersionCurrent.iStep          | iStep                                              |
+| attributes.softwareVersionCurrent.puStep         | puStep                                             |
+| attributes.softwareVersionExFactory.iStep        | exFactoryILevel                                    |
+| attributes.softwareVersionExFactory.puStep       | exFactoryPUStep                                    |
+| attributes.year                                  | year                                               |
+| state.chargingProfile.chargingSettings.targetSoc | status.chargingProfile.chargingSettings.targetSoc  |
+| state.currentMileage                             | status.currentMileage.mileage                      |
+| state.doorsState.combinedSecurityState           | `(properties.areDoorsLocked ? "SECURED" : "OPEN")` |
+| state.doorsState.hood                            | properties.doorsAndWindows.trunk                   |
+| state.doorsState.leftFront                       | properties.doorsAndWindows.doors.driverFront       |
+| state.doorsState.leftRear                        | properties.doorsAndWindows.doors.driverRear        |
+| state.doorsState.rightFront                      | properties.doorsAndWindows.doors.passengerFront    |
+| state.doorsState.rightRear                       | properties.doorsAndWindows.doors.passengerRear     |
+| state.doorsState.trunk                           | properties.doorsAndWindows.doors.hood              |
+| state.electricChargingState.chargingLevelPercent | properties.chargingState.chargePercentage          |
+| state.electricChargingState.chargingStatus       | properties.chargingState.state                     |
+| state.electricChargingState.chargingTarget       | status.chargingProfile.chargingSettings.targetSoc  |
+| state.electricChargingState.isChargerConnected   | properties.chargingState.isChargerConnected        |
+| state.electricChargingState.range                | properties.electricRange.distance.value            |
+| state.isLeftSteering                             | ?                                                  |
+| state.lastUpdatedAt                              | status.lastUpdatedAt                               |
+| state.location.address.formatted                 | properties.vehicleLocation.address.formatted       |
+| state.location.coordinates.latitude              | properties.vehicleLocation.coordinates.latitude    |
+| state.location.coordinates.longitude             | properties.vehicleLocation.coordinates.longitude   |
+| state.location.heading                           | properties.vehicleLocation.heading                 |
+| state.roofState.roofState                        | properties.doorsAndWindows.moonroof                |
+| state.windowsState.leftFront                     | properties.doorsAndWindows.windows.driverFront     |
+| state.windowsState.leftRear                      | properties.doorsAndWindows.windows.driverRear      |
+| state.windowsState.rightFront                    | properties.doorsAndWindows.windows.passengerFront  |
+| state.windowsState.rightRear                     | properties.doorsAndWindows.windows.passengerRear   |
+| vin                                              | vin                                                |
 
 ## History
 
+```text
 * 2017-Dez-01: 0.1.0 - First prototype.
 * 2018-Jan-26: 0.1.1 - Remove verbose logging of token code.
 * 2019-Jun-17: 0.1.2 - Added diagnosis message if VIN has invalid format.
-* 2021-Sep-08: 0.2.0
-  * Refactored code to make token handling more stable. Token is no longer cached on disk.
-  * Added service to get statistics of last trip and all trips.
-  * Added service to get destinations.
-  * Added service to get car status.
-  * Fixed service to get charging profile.
-  * Server now selected by region.
-* 2021-Oct-04: 0.3.0
-  * Added new node "BMW Action" to trigger a remote service on the car.
+* 2021-Sep-08: 0.2.0 - Refactored code to make token handling more stable. Token is no longer cached on disk.
+                     - Added service to get statistics of last trip and all trips.
+                     - Added service to get destinations.
+                     - Added service to get car status.
+                     - Fixed service to get charging profile.
+                     - Server now selected by region.
+* 2021-Oct-04: 0.3.0 - Added new node "BMW Action" to trigger a remote service on the car.
 * 2022-Jan-22: 0.3.1 - Fix to support new API from "my BMW" (charging-statistics, charging-sessions).
 * 2022-Jan-23: 0.3.2 - Added new remote command "Charge Now".
 * 2022-Jan-23: 0.3.3 - Cleanup and additional error message.
@@ -165,6 +320,8 @@ Can be used to trigger a remote service on the car. This includes:
 * 2022-Aug-07: 0.4.6 - fix region setting, thanks to @oemich
 * 2023-Feb-12: 0.4.7 - fix "Climate Stop" action, thanks to @amuehlhause
 * 2023-Jul-03: 0.5.0 - Adopt BMW APIv4 to fix http 404, thanks to @jkellerer
+* 2023-Jul-30:       - Update readme with new return values of v4 and release notes
+```
 
 ## Credits
 
@@ -185,6 +342,8 @@ Thanks for contributions from:
 
 * https://github.com/dzett
 * https://github.com/jkellerer
+* https://github.com/oemich
+* https://github.com/amuehlhause
 
 ## Trademarks
 
