@@ -320,7 +320,9 @@ Example of the structural changes:
 * 2022-Aug-07: 0.4.6 - fix region setting, thanks to @oemich
 * 2023-Feb-12: 0.4.7 - fix "Climate Stop" action, thanks to @amuehlhause
 * 2023-Jul-03: 0.5.0 - Adopt BMW APIv4 to fix http 404, thanks to @jkellerer
-* 2023-Jul-30:       - Update readme with new return values of v4 and release notes
+* 2023-Jul-30: 0.5.1 - Update readme with new return values of v4 and release notes
+*                    - Fix retrievel of charging profile and cleanup of source
+*                    - New experimental feature to set charging mode and settings
 ```
 
 ## Credits
