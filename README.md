@@ -235,7 +235,9 @@ Can be used to trigger a remote service on the car. This includes:
 * Unlock door
 * Start climate
 * Stop climate
-* Find vehicle (update location)
+* Find vehicle (Update location)
+* Change charging mode (Immediate charging or delayed charging)
+* Change charging settings (Current limit for AC charging and charging target)
 
 ### Additional Information
 
@@ -252,6 +254,29 @@ Can be used to trigger a remote service on the car. This includes:
   * 503: 'SERVICE_MAINTENANCE'
 
 ## Release Notes
+
+### v0.5.1 - New Charging Features
+
+It is now possible to read out the charging settings using the *BMW Get* node.
+
+In addition, there are 2 new actions which allow to change the charging mode and charging settings.
+
+For the `Change Charging Mode` action the payload body must contain the charge and climate timer details to which the charging mode should be changed.
+In this case the payload body must follow the object structure of the `chargeAndClimateTimerDetail` object returned by the *BMW Get* node for the data type `Charging Profile`.
+
+For the `Change Charging Settings` action the payload body must contain the following properties:
+
+```JSON
+{
+    "chargingTarget": <value in percent>,
+    "acLimitValue": <value in amps>
+}
+```
+
+* The `chargingTarget` must be a value between 20 and 100 in steps of 5.
+* The `acLimitValue` must be a value as returned by the `chargingSettingsDetail.acLimit.values` of the `Charging Profile` data type of the *BMW Get* node. Typical values are: 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 20, 32, ...
+
+![releasenotes_charging_settings.png](./doc/releasenotes_charging_settings.png)
 
 ### v0.5.0 - Upgrade to BMW v4 API
 
@@ -321,8 +346,9 @@ Example of the structural changes:
 * 2023-Feb-12: 0.4.7 - fix "Climate Stop" action, thanks to @amuehlhause
 * 2023-Jul-03: 0.5.0 - Adopt BMW APIv4 to fix http 404, thanks to @jkellerer
 * 2023-Jul-30: 0.5.1 - Update readme with new return values of v4 and release notes
-*                    - Fix retrievel of charging profile and cleanup of source
-*                    - New experimental feature to set charging mode and settings
+                     - Fix retrievel of charging profile and cleanup of source
+                     - New experimental feature to set charging mode and settings
+* 2023-Jul-31: 0.5.2 - Update readme additional information about charging features.                     
 ```
 
 ## Credits

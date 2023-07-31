@@ -343,10 +343,23 @@
     <p>The ACTION node is used to trigger a remote service of a car. Select the desired action in the editor panel.
     You also have to specify the VIN (vehicle identification number) of your car. You can get the VIN of your car by looking in your
     documents of by using the List node.<br>
-    If no VIN is given in the node configuration panel, then the vin in <code>msg.vin</code> is used.<br><br>
-    For some remote services (e.g. <code>Change Charging Mode</code>) a payload body has to be provided in <code>msg.payload</code>, which is sent to the car.<br>
-    For the <code>Change Charging Mode</code> action the payload body must contain the charge and climate timer details to which the charging mode should be changed.
+    If no VIN is given in the node configuration panel, then the vin in <code>msg.vin</code> is used.<br></p>
+
+    <p>For some remote services (e.g. <code>Change Charging Mode</code>) a payload body has to be provided in <code>msg.payload</code>, which is sent to the car.</p>
+
+    <p>For the <code>Change Charging Mode</code> action the payload body must contain the charge and climate timer details to which the charging mode should be changed.
     In this case the payload body must follow the object structure of the <code>chargeAndClimateTimerDetail</code> object returned by the <code>BMW Get</code> node for the data type <code>Charging Profile</code>.</p>
+
+    <p>For the <code>Change Charging Settings</code> action the payload body must contain the following properties:
+    <code>
+    {
+      "chargingTarget": xx,
+      "acLimitValue": xx
+    }
+    </code><br>
+    The <code>chargingTarget</code> must be a value between 20 and 100 in steps of 5.<br>
+    The <code>acLimitValue</code> must be a value as returned by the <code>chargingSettingsDetail.acLimit.values</code> of the <code>Charging Profile</code> data type of the <code>BMW Get</code> node.<br>
+    </p>
 
   <h3>References</h3>
     <ul>
