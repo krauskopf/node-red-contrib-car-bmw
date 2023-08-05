@@ -236,6 +236,8 @@ Can be used to trigger a remote service on the car. This includes:
 * Start climate
 * Stop climate
 * Find vehicle (Update location)
+* Start charging
+* Stop charging
 * Change charging mode (Immediate charging or delayed charging)
 * Change charging settings (Current limit for AC charging and charging target)
 
@@ -254,6 +256,11 @@ Can be used to trigger a remote service on the car. This includes:
   * 503: 'SERVICE_MAINTENANCE'
 
 ## Release Notes
+
+### v0.5.3 - Start / Stop Charging
+
+There are 2 new actions that allow you to start and stop the charging of your car.
+The previous action called `Charge Now` is no longer supported by the API.
 
 ### v0.5.1 - New Charging Features
 
@@ -349,6 +356,7 @@ Example of the structural changes:
                      - Fix retrievel of charging profile and cleanup of source
                      - New experimental feature to set charging mode and settings
 * 2023-Jul-31: 0.5.2 - Update readme additional information about charging features.                     
+* 2023-Aug-05: 0.5.3 - Add actions to start and stop charging, thanks to @IfThenElseLoop
 ```
 
 ## Credits
@@ -362,16 +370,18 @@ This project is heavily influenced by the work of:
 * Terence Eden (<https://github.com/edent/BMW-i-Remote>)
 * bimmer_connected (<https://github.com/bimmerconnected/bimmer_connected>)
 * bluewalk (<https://github.com/bluewalk/BMWConnecteDrive/blob/master/ConnectedDrive.php>)
-* oemich (<https://github.com/oemich>)
-* amuehlhause (<https://github.com/amuehlhause>)
-* jkellerer (<https://github.com/jkellerer>)
 
 Thanks for contributions from:
 
-* https://github.com/dzett
-* https://github.com/jkellerer
-* https://github.com/oemich
-* https://github.com/amuehlhause
+* oemich (<https://github.com/oemich>)
+* amuehlhause (<https://github.com/amuehlhause>)
+* jkellerer (<https://github.com/jkellerer>)
+* dzett (<https://github.com/dzett>)
+* michaefa (<https://github.com/michaefa>)
+* peterossege <https://github.com/peterossege>
+* thomasp3 <https://github.com/thomasp3>
+* Donni1966 <https://github.com/Donni1966>
+* IfThenElseLoop (<https://github.com/IfThenElseLoop>)
 
 ## Trademarks
 
