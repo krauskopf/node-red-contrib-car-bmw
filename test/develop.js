@@ -127,7 +127,7 @@ async function testSimple() {
     await bmw.requestNewToken();
     console.log("Successfully authenticated");
 
-    let data = await bmw.getCarInfo(getVin(), Bmw.GET_STATISTICS_LAST_TRIP);
+    let data = await bmw.getCarInfo(getVin(), Bmw.GET_STATE);
     console.log(JSON.stringify(data));
 
   } catch (err) {
