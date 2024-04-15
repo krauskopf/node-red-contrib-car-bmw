@@ -357,6 +357,8 @@ Example of the structural changes:
                      - New experimental feature to set charging mode and settings
 * 2023-Jul-31: 0.5.2 - Update readme additional information about charging features.                     
 * 2023-Aug-05: 0.5.3 - Add actions to start and stop charging, thanks to @IfThenElseLoop
+* 2024-Apr-15: 0.6.0 - Updated auth scheme and use V5 vehicle list. Thanks to @jkellerer.
+                     - Fixes authentication errors with new BMW API.
 ```
 
 ## Credits
