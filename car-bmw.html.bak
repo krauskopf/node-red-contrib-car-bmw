@@ -280,7 +280,7 @@
         "RCN": "Start Climate",
         "RCNSTOP": "Stop Climate",
         "RVF": "Vehicle Finder",
-        "CHARGE_NOW": "Charge Now \u2020",
+        "CHARGE_NOW": "Charge Now",
         "CHANGE_CHARGING_MODE": "Change Charging Mode",
         "CHANGE_CHARGING_SETTINGS": "Change Charging Settings",
         "CHARGE_START": "Start Charging",
@@ -332,6 +332,11 @@
       <dt class="optional">vin <span class="property-type">string</span></dt>
       <dd> if not set in the node configuration panel, this property specifies the VIN (vehicle identification number) of the car to read the infos from.</dd>
     </dl>
+    <dl class="message-properties">
+      <dt class="optional">payload <span class="property-type">string</span></dt>
+      <dd> If provided, this property specifies the JSON payload body which will be sent to the car.</dd>
+    </dl>
+
     <dl class="message-properties">
       <dt class="optional">payload <span class="property-type">string</span></dt>
       <dd> If provided, this property specifies the JSON payload body which will be sent to the car.</dd>
