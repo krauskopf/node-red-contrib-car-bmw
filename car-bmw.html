@@ -150,7 +150,7 @@
     defaults: {
       account: {type: "car-bmw", required: true},
       name: {value: "", required:false},
-      datatype: {value: "dynamic", required: true}
+      datatype: {value: "state", required: true}
     },
     credentials: {
       vin: {type: "text", required: true}
@@ -164,19 +164,20 @@
       }
 
       var text = {
-        "service":                          "Services",
+        "service":                          "Service \u2020",
         "specs":                            "Specifications \u2020",
         "dynamic":                          "Dynamic \u2020",
         "navigation":                       "Navigation \u2020",
-        "chargingprofile":                  "Charging Profile \u2020",
-        "servicepartner":                   "Service Partner",
+        "chargingprofile":                  "Charging Profile",
+        "servicepartner":                   "Service Partner \u2020",
         "efficiency":                       "Efficiency \u2020",
         "statistics/allTrips":              "All Trips \u2020",
         "statistics/lastTrip":              "Last Trip \u2020",
         "status":                           "Status \u2020",
         "destinations":                     "Destinations \u2020",
         "charging-statistics":              "Charging Statistics",
-        "charging-sessions":                "Charging Sessions"
+        "charging-sessions":                "Charging Sessions",
+        "state":                            "State"
       };
 
       return "" + text[this.datatype];
@@ -200,12 +201,13 @@
     <div class="form-row">
         <label for="node-input-datatype"><i class="fa fa-file-text-o"></i> Data type</label>
         <select id="node-input-datatype" style="width:70%">
-            <option value="service">Services</option>
+            <!--<option value="service">Services</option>-->
             <!--<option value="specs">Specifications</option>-->
             <!--<option value="dynamic">Dynamic</option>-->
             <!--<option value="navigation">Navigation</option>-->
-            <option value="servicepartner">Service Partner</option>
+            <!--<option value="servicepartner">Service Partner</option>-->
             <!--<option value="efficiency">Efficiency</option>-->
+            <option value="state">State</option>
             <option value="charging-statistics">Charging Statistics</option>
             <option value="charging-sessions">Charging Sessions</option>
             <option value="chargingprofile">Charging Profile</option>
@@ -275,11 +277,14 @@
         "RHB": "Blow Horn",
         "RDL": "Lock Door",
         "RDU": "Unlock Door",
-        "RCN": "Climate Start",
-        "RCNSTOP": "Climate Stop",
+        "RCN": "Start Climate",
+        "RCNSTOP": "Stop Climate",
         "RVF": "Vehicle Finder",
         "CHARGE_NOW": "Charge Now",
-        "CHANGE_CHARGING_MODE": "Change Charging Mode"
+        "CHANGE_CHARGING_MODE": "Change Charging Mode",
+        "CHANGE_CHARGING_SETTINGS": "Change Charging Settings",
+        "CHARGE_START": "Start Charging",
+        "CHARGE_STOP": "Stop Charging"
       };
 
       return "Action: " + text[this.action];
@@ -307,11 +312,14 @@
             <option value="RHB">Blow Horn</option>
             <option value="RDL">Lock Door</option>
             <option value="RDU">Unlock Door</option>
-            <option value="RCN">Climate Start</option>
-            <option value="RCNSTOP">Climate Stop</option>
+            <option value="RCN">Start Climate</option>
+            <option value="RCNSTOP">Stop Climate</option>
             <option value="RVF">Vehicle Finder</option>
-            <option value="CHARGE_NOW">Charge Now</option>
+            <!--<option value="CHARGE_NOW">Charge Now</option>-->
             <option value="CHANGE_CHARGING_MODE">Change Charging Mode</option>
+            <option value="CHANGE_CHARGING_SETTINGS">Change Charging Settings</option>
+            <option value="CHARGE_START">Start Charging</option>
+            <option value="CHARGE_STOP">Stop Charging</option>
         </select>
     </div>
 </script>
@@ -323,6 +331,10 @@
     <dl class="message-properties">
       <dt class="optional">vin <span class="property-type">string</span></dt>
       <dd> if not set in the node configuration panel, this property specifies the VIN (vehicle identification number) of the car to read the infos from.</dd>
+    </dl>
+    <dl class="message-properties">
+      <dt class="optional">payload <span class="property-type">string</span></dt>
+      <dd> If provided, this property specifies the JSON payload body which will be sent to the car.</dd>
     </dl>
 
     <dl class="message-properties">
@@ -340,10 +352,23 @@
     <p>The ACTION node is used to trigger a remote service of a car. Select the desired action in the editor panel.
     You also have to specify the VIN (vehicle identification number) of your car. You can get the VIN of your car by looking in your
     documents of by using the List node.<br>
-    If no VIN is given in the node configuration panel, then the vin in <code>msg.vin</code> is used.<br><br>
-    For some remote services (e.g. <code>Change Charging Mode</code>) a payload body has to be provided in <code>msg.payload</code>, which is sent to the car.<br>
-    For the <code>Change Charging Mode</code> action the payload body must contain the charge and climate timer details to which the charging mode should be changed.
+    If no VIN is given in the node configuration panel, then the vin in <code>msg.vin</code> is used.<br></p>
+
+    <p>For some remote services (e.g. <code>Change Charging Mode</code>) a payload body has to be provided in <code>msg.payload</code>, which is sent to the car.</p>
+
+    <p>For the <code>Change Charging Mode</code> action the payload body must contain the charge and climate timer details to which the charging mode should be changed.
     In this case the payload body must follow the object structure of the <code>chargeAndClimateTimerDetail</code> object returned by the <code>BMW Get</code> node for the data type <code>Charging Profile</code>.</p>
+
+    <p>For the <code>Change Charging Settings</code> action the payload body must contain the following properties:
+    <code>
+    {
+      "chargingTarget": xx,
+      "acLimitValue": xx
+    }
+    </code><br>
+    The <code>chargingTarget</code> must be a value between 20 and 100 in steps of 5.<br>
+    The <code>acLimitValue</code> must be a value as returned by the <code>chargingSettingsDetail.acLimit.values</code> of the <code>Charging Profile</code> data type of the <code>BMW Get</code> node.<br>
+    </p>
 
   <h3>References</h3>
     <ul>

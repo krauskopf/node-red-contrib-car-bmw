@@ -77,15 +77,10 @@ async function testReadAll() {
 
     // Print the different car infos
     var list = [
-      Bmw.GET_DYNAMIC,
-      Bmw.GET_SPECS,
-      Bmw.GET_NAVIGATION,
-      Bmw.GET_EFFICIENCY,
+      Bmw.GET_STATE,
       Bmw.GET_CHARGING_PROFILE,
-      Bmw.GET_SERVICE,
-      Bmw.GET_SERVICE_PARTNER,
-      Bmw.GET_STATISTICS_ALL_TRIPS,
-      Bmw.GET_STATISTICS_LAST_TRIP
+      //Bmw.GET_CHARGING_STATISTICS,
+      //Bmw.GET_CHARGING_SESSIONS,
     ];
 
     for (let key in list) {
@@ -94,7 +89,7 @@ async function testReadAll() {
         let data = await bmw.getCarInfo(getVin(), list[key]);
         console.log(JSON.stringify(data));
       } catch (error) {
-        console.log('FAILED');
+        console.log('FAILED', error);
       }
     }
 
@@ -127,7 +122,7 @@ async function testSimple() {
     await bmw.requestNewToken();
     console.log("Successfully authenticated");
 
-    let data = await bmw.getCarInfo(getVin(), Bmw.GET_STATISTICS_LAST_TRIP);
+    let data = await bmw.getCarInfo(getVin(), Bmw.GET_STATE);
     console.log(JSON.stringify(data));
 
   } catch (err) {
@@ -143,7 +138,7 @@ async function develop() {
     await bmw.requestNewToken();
     console.log("Successfully authenticated");
 
-    let data = await bmw.executeRemoteService(getVin(), Bmw.SERVICE_FLASH_HEADLIGHTS);
+    let data = await bmw.executeRemoteService(getVin(), Bmw.SERVICE_DOOR_LOCK);
     console.log(JSON.stringify(data));
 
   } catch (err) {
