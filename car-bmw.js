@@ -25,6 +25,7 @@ SOFTWARE.
 module.exports = function(RED) {
   'use strict';
   const Bmw = require('./lib/bmw.js');
+  const { pbkdf2Sync } = require('crypto');
 
 
 
@@ -42,11 +43,21 @@ module.exports = function(RED) {
     if (this.credentials) {
       this.username = this.credentials.username;
       this.password = this.credentials.password;
+      this.captcha = this.credentials.captcha;
     }
 
     // Config node state
     this.closing = false;
-    this.bmw = new Bmw(this.username, this.password, this.region, this.unit);
+    this.bmw = new Bmw(this.username, this.password, this.captcha, this.region, this.unit);
+
+    this.bmw.setTokenStoreProvider(() => {
+      let ctx = this.context();
+      let store = ctx.bmw_oauth || (ctx.bmw_oauth = {});
+      if (!this.storeKey) {
+        this.storeKey = pbkdf2Sync(this.password, this.username, 100000, 32, 'sha256').toString('hex');
+      }
+      return store[this.storeKey] || (store[this.storeKey] = {});
+    });
 
     // Define functions called by nodes
     let node = this;
@@ -60,7 +71,8 @@ module.exports = function(RED) {
   RED.nodes.registerType("car-bmw", CarBmwNodeConfig, {
     credentials: {
       username: {type: "text"},
-      password: {type: "password"}
+      password: {type: "password"},
+      captcha: {type: "password"},
     }
   });
 
