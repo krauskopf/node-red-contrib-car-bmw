@@ -50,13 +50,23 @@ module.exports = function(RED) {
     this.closing = false;
     this.bmw = new Bmw(this.username, this.password, this.captcha, this.region, this.unit);
 
-    this.bmw.setTokenStoreProvider(() => {
-      let ctx = this.context();
-      let store = ctx.bmw_oauth || (ctx.bmw_oauth = {});
+    // Note: Requires a persistent context store for the global context
+    this.bmw.setTokenStoreProvider(callback => {
       if (!this.storeKey) {
-        this.storeKey = pbkdf2Sync(this.password, this.username, 100000, 32, 'sha256').toString('hex');
+        this.storeKey = pbkdf2Sync(this.password, this.username, 100000, 16, 'sha256').toString('hex');
       }
-      return store[this.storeKey] || (store[this.storeKey] = {});
+
+      const ctx = this.context().global;
+      ctx.get('bmw_oauth', (err, oauth) => {
+        if (err) {
+          this.error(err, msg);
+        } else {
+          oauth = oauth || (oauth = {});
+          let store = oauth[this.storeKey] || (oauth[this.storeKey] = {});
+          callback(store);
+          ctx.set('bmw_oauth', oauth);
+        }
+      });
     });
 
     // Define functions called by nodes
