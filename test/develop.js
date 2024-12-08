@@ -37,6 +37,9 @@ function getUsername() {
 function getPassword() {
   return process.env.TEST_PASSWORD;
 }
+function getCaptchaToken() {
+  return process.env.TEST_CAPTCHA;
+}
 function getVin() {
   return process.env.TEST_VIN;
 }
@@ -46,8 +49,7 @@ function getVin() {
 //
 // Globals
 //
-let bmw = new Bmw(getUsername(), getPassword());
-
+let bmw = new Bmw(getUsername(), getPassword(), getCaptchaToken());
 
 
 //
@@ -58,6 +60,8 @@ async function testAuthentication() {
   try {
     await bmw.requestNewToken();
     console.log("Successfully authenticated");
+    await bmw.requestNewToken();
+    console.log("Successfully refreshed token");
   } catch (err) {
     console.error('Housten we are in trouble: ' + err);
   }
@@ -148,6 +152,22 @@ async function develop() {
 }
 
 
+function testCrypto() {
+  let pw = "12345";
+  let e1 = Bmw._encrypt(pw, "test");
+  console.log(e1);
+  let e2 = Bmw._encrypt(pw, "test");
+  console.log(e2);
+  let d1 = Bmw._decrypt(pw, e1);
+  let d2 = Bmw._decrypt(pw, e2);
+  if (e1 == e2) throw new Error("enc not unique");
+  if (e1.indexOf('test') > -1) throw new Error("not encrypted");
+  if (d1 != d2) throw new Error("dec not same");
+  if (d1 != "test") throw new Error("dec not original");
+  console.log("ok");
+}
+
+
 //
 // Exports
 //
@@ -157,6 +177,7 @@ exports.testSimple = testSimple;
 exports.testCarList = testCarList;
 
 
+//testCrypto();
 //testAuthentication();
 //testReadAll();
 //testSimple();
