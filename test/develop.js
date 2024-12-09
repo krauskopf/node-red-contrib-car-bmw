@@ -58,9 +58,9 @@ let bmw = new Bmw(getUsername(), getPassword(), getCaptchaToken());
 async function testAuthentication() {
 
   try {
-    await bmw.requestNewToken();
+    await bmw.updateOrRequestToken();
     console.log("Successfully authenticated");
-    await bmw.requestNewToken();
+    await bmw.updateOrRequestToken();
     console.log("Successfully refreshed token");
   } catch (err) {
     console.error('Housten we are in trouble: ' + err);
@@ -72,7 +72,7 @@ async function testAuthentication() {
 async function testReadAll() {
 
   try {
-    await bmw.requestNewToken();
+    await bmw.updateOrRequestToken();
     console.log("Successfully authenticated");
 
     // Print the list of registered cars
@@ -107,7 +107,7 @@ async function testReadAll() {
 async function testCarList() {
 
   try {
-    await bmw.requestNewToken();
+    await bmw.updateOrRequestToken();
     console.log("Successfully authenticated");
 
     let data = await bmw.getCarList();
@@ -123,7 +123,7 @@ async function testCarList() {
 async function testSimple() {
 
   try {
-    await bmw.requestNewToken();
+    await bmw.updateOrRequestToken();
     console.log("Successfully authenticated");
 
     let data = await bmw.getCarInfo(getVin(), Bmw.GET_STATE);
@@ -139,7 +139,7 @@ async function testSimple() {
 async function develop() {
 
   try {
-    await bmw.requestNewToken();
+    await bmw.updateOrRequestToken();
     console.log("Successfully authenticated");
 
     let data = await bmw.executeRemoteService(getVin(), Bmw.SERVICE_DOOR_LOCK);
