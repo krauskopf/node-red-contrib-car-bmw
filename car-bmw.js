@@ -40,6 +40,7 @@ module.exports = function(RED) {
     this.debug = config.debug;
     this.region = config.region;
     this.unit = config.unit;
+    this.storage = config.storage || null;
     if (this.credentials) {
       this.username = this.credentials.username;
       this.password = this.credentials.password;
@@ -57,14 +58,14 @@ module.exports = function(RED) {
       }
 
       const ctx = this.context().global;
-      ctx.get('bmw_oauth', (err, oauth) => {
+      ctx.get('bmw_oauth', this.storage, (err, oauth) => {
         if (err) {
           this.error(err, msg);
         } else {
           oauth = oauth || (oauth = {});
           let store = oauth[this.storeKey] || (oauth[this.storeKey] = {});
           callback(store);
-          ctx.set('bmw_oauth', oauth);
+          ctx.set('bmw_oauth', oauth, this.storage);
         }
       });
     });
