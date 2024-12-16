@@ -25,6 +25,7 @@ SOFTWARE.
 module.exports = function(RED) {
   'use strict';
   const Bmw = require('./lib/bmw.js');
+  const { pbkdf2Sync } = require('crypto');
 
 
 
@@ -39,14 +40,35 @@ module.exports = function(RED) {
     this.debug = config.debug;
     this.region = config.region;
     this.unit = config.unit;
+    this.storage = config.storage || null;
     if (this.credentials) {
       this.username = this.credentials.username;
       this.password = this.credentials.password;
+      this.captcha = this.credentials.captcha;
     }
 
     // Config node state
     this.closing = false;
-    this.bmw = new Bmw(this.username, this.password, this.region, this.unit);
+    this.bmw = new Bmw(this.username, this.password, this.captcha, this.region, this.unit);
+
+    // Note: Requires a persistent context store for the global context
+    this.bmw.setTokenStoreProvider(callback => {
+      if (!this.storeKey) {
+        this.storeKey = pbkdf2Sync(this.password, this.username, 100000, 16, 'sha256').toString('hex');
+      }
+
+      const ctx = this.context().global;
+      ctx.get('bmw_oauth', this.storage, (err, oauth) => {
+        if (err) {
+          this.error(err, msg);
+        } else {
+          oauth = oauth || (oauth = {});
+          let store = oauth[this.storeKey] || (oauth[this.storeKey] = {});
+          callback(store);
+          ctx.set('bmw_oauth', oauth, this.storage);
+        }
+      });
+    });
 
     // Define functions called by nodes
     let node = this;
@@ -60,7 +82,8 @@ module.exports = function(RED) {
   RED.nodes.registerType("car-bmw", CarBmwNodeConfig, {
     credentials: {
       username: {type: "text"},
-      password: {type: "password"}
+      password: {type: "password"},
+      captcha: {type: "password"},
     }
   });
 
